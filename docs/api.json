@@ -1,0 +1,649 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Task Manager RESTful API",
+    "description": "API Spec for Task Manager RESTful API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post" : {
+        "tags": ["Users API"],
+        "description": "Register new user",
+        "summary": "Register new user",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201" : {
+            "description": "Success register users",
+            "content" : {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type" : "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref" : "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags" : ["Users API"],
+        "description": "List all users",
+        "summary": "List all users",
+        "responses": {
+          "200": {
+            "description": "Success get all users",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects": {
+      "get": {
+        "tags" : ["Projects API"],
+        "description": "List all projects",
+        "summary": "List all projects",
+        "responses": {
+          "200": {
+            "description": "Success get all projects",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/Project"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags": ["Projects API"],
+        "description": "Create new project",
+        "summary": "Create new project",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateProject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201" : {
+            "description": "Success register project",
+            "content" : {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type" : "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref" : "#/components/schemas/Project"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{projectID}": {
+      "get": {
+        "tags": ["Projects API"],
+        "summary": "Get detail project by id",
+        "description": "Get detail project by id",
+        "parameters" : [
+          {
+            "name": "projectID",
+            "in": "path",
+            "description": "projectID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get post detail by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Project"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Projects API"],
+        "summary": "Update project",
+        "description": "Update project",
+        "parameters" : [
+          {
+            "name": "projectID",
+            "in": "path",
+            "description": "projectID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateProject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success get project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Project"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Projects API"],
+        "summary": "Delete Project",
+        "description": "Delete Project",
+        "parameters": [
+          {
+            "name": "projectID",
+            "in": "path",
+            "description": "projectID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete project",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "tags" : ["Tasks API"],
+        "description": "List all tasks",
+        "summary": "List all tasks",
+        "responses": {
+          "200": {
+            "description": "Success get all tasks",
+            "content": {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items" : {
+                        "$ref" : "#/components/schemas/Task"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags": ["Tasks API"],
+        "description": "Create new task",
+        "summary": "Create new task",
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201" : {
+            "description": "Success register task",
+            "content" : {
+              "application/json" : {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type" : "number"
+                    },
+                    "status" : {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref" : "#/components/schemas/Task"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tasks/{taskID}": {
+      "get": {
+        "tags": ["Tasks API"],
+        "summary": "Get detail task by id",
+        "description": "Get detail task by id",
+        "parameters" : [
+          {
+            "name": "taskID",
+            "in": "path",
+            "description": "taskID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get post detail by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Task"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Tasks API"],
+        "summary": "Update task",
+        "description": "Update task",
+        "parameters" : [
+          {
+            "name": "taskID",
+            "in": "path",
+            "description": "taskID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json" : {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrUpdateTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success get task",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Task"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Tasks API"],
+        "summary": "Delete Task",
+        "description": "Delete Task",
+        "parameters": [
+          {
+            "name": "taskID",
+            "in": "path",
+            "description": "taskID",
+            "required": true,
+            "content": {
+
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete task",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code" : {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateOrUpdateUser": {
+        "type" : "object",
+        "properties": {
+          "name" : {
+            "type": "string"
+          },
+          "email": {
+            "type":"string"
+          },
+          "password": {
+            "type":"string"
+          }
+        }
+      },
+      "CreateOrUpdateProject": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrUpdateTask": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["todo", "in_progress", "done"],
+            "default": "todo"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "default": "medium"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "User": {
+        "type" : "object",
+        "properties": {
+          "id" : {
+            "type" : "number"
+          },
+          "name" : {
+            "type": "string"
+          },
+          "email" : {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id" : {
+            "type": "number"
+          },
+          "user_id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id" : {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["todo", "in_progress", "done"],
+                  "default": "todo"
+                },
+                "priority": {
+                  "type": "string",
+                  "enum": ["low", "medium", "high"],
+                  "default": "medium"
+                },
+                "deadline": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id" : {
+            "type": "number"
+          },
+          "project_id": {
+            "type": "number"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["todo", "in_progress", "done"],
+            "default": "todo"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "default": "medium"
+          },
+          "deadline": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}
