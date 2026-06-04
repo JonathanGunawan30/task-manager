@@ -1,0 +1,117 @@
+@host = http://localhost:3000
+@api_key = X-RAHASIA-KEY
+@user_id = 1
+
+### User Registration
+POST {{host}}/api/users/register
+Content-Type: application/json
+
+{
+  "name": "Jonathan Gunawan",
+  "email": "jonathangunawan@example.com",
+  "password": "rahasia"
+}
+
+> {%
+    client.global.set("user_id", response.body.data.id);
+%}
+
+### Get All Users
+GET {{host}}/api/users
+Accept: application/json
+
+### Create Project
+POST {{host}}/api/projects
+Content-Type: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+{
+  "title": "Project RESTful API",
+  "description": "This is a RESTful API project"
+}
+
+> {%
+    client.global.set("project_id", response.body.data.id);
+%}
+
+### Get All Projects
+GET {{host}}/api/projects
+Accept: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### Get Project Detail
+GET {{host}}/api/projects/{{project_id}}
+Accept: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### Update Project
+PUT {{host}}/api/projects/{{project_id}}
+Content-Type: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+{
+  "title": "Updated Project Title",
+  "description": "Updated project description"
+}
+
+### Create Task
+POST {{host}}/api/tasks
+Content-Type: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+{
+  "project_id": {{project_id}},
+  "title": "Make user repository",
+  "description": "Make comprehensive user repository",
+  "status": "todo",
+  "priority": "high",
+  "deadline": "2026-07-01T23:59:59Z"
+}
+
+> {%
+    client.global.set("task_id", response.body.data.id);
+%}
+
+### Get All Tasks
+GET {{host}}/api/tasks
+Accept: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### Get Task Detail
+GET {{host}}/api/tasks/{{task_id}}
+Accept: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### Update Task
+PUT {{host}}/api/tasks/{{task_id}}
+Content-Type: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+{
+  "project_id": {{project_id}},
+  "title": "Updated Task Title",
+  "description": "Updated task description",
+  "status": "in_progress",
+  "priority": "medium",
+  "deadline": "2028-01-01T10:00:00Z"
+}
+
+### Delete Task
+DELETE {{host}}/api/tasks/{{task_id}}
+Accept: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}
+
+### Delete Project
+DELETE {{host}}/api/projects/{{project_id}}
+Accept: application/json
+X-API-Key: {{api_key}}
+X-User-ID: {{user_id}}

@@ -19,8 +19,8 @@ type TaskUsecase struct {
 	projectRepository repository.ProjectRepository
 }
 
-func NewTaskUsecase(log *logrus.Logger, tx tx.TxManager, taskRepository repository.TaskRepository) usecase.TaskUsecase {
-	return &TaskUsecase{log: log, tx: tx, taskRepository: taskRepository}
+func NewTaskUsecase(log *logrus.Logger, tx tx.TxManager, taskRepository repository.TaskRepository, projectRepository repository.ProjectRepository) usecase.TaskUsecase {
+	return &TaskUsecase{log: log, tx: tx, taskRepository: taskRepository, projectRepository: projectRepository}
 }
 
 func (t *TaskUsecase) Create(ctx context.Context, request *entity.TaskCreateRequest) (*entity.TaskResponse, error) {

@@ -55,7 +55,13 @@ func (p *ProjectRepository) Update(ctx context.Context, project *model.Project) 
 	if result.Error != nil {
 		return nil, result.Error
 	}
-	return project, nil
+
+	detail, err := p.GetDetail(ctx, project.ID, project.UserID)
+	if err != nil {
+		return nil, err
+	}
+
+	return detail, nil
 }
 
 func (p *ProjectRepository) Delete(ctx context.Context, projectID, userID int) error {
